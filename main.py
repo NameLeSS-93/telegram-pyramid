@@ -10,7 +10,7 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.sql import func
 
 from db import init_db
-from model import Admin, Code, User, UserType
+from models import Admin, Code, User, UserType
 from settings import load_settings
 from utils import generate_user_codes
 

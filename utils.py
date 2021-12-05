@@ -1,6 +1,6 @@
 import uuid
 
-from model import Code
+from models import Code
 
 
 def generate_user_codes(user):
