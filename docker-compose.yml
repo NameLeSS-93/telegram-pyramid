@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  bot:
+    build: .
+    image: bot:latest
+    container_name: bot
+    restart: unless-stopped
+    environment:
+      TOKEN_API: "exmaple_token"
+    networks:
+      - bot_network
+    depends_on:
+      - "postgres_bot"
+
+  postgres_bot:
+    image: postgres:12.6-alpine
+    container_name: postgres-12.6
+    restart: unless-stopped
+    networks:
+      - bot_network
+    volumes:
+      - postgres_bot:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bot_db
+
+networks:
+  bot_network:
+
+volumes:
+  postgres_bot:
+

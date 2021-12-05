@@ -1,0 +1,6 @@
+aiogram==2.4
+aiohttp~=3.6.2
+asyncpg==0.23.0
+passlib==1.7.4
+SQLAlchemy~=1.4.27
+loguru~=0.5.3
