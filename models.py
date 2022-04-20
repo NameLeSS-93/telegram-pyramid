@@ -2,8 +2,7 @@ import enum
 from datetime import datetime
 
 import pytz
-from sqlalchemy import (BOOLEAN, INTEGER, VARCHAR, Column, DateTime, Enum,
-                        ForeignKey)
+from sqlalchemy import BOOLEAN, INTEGER, VARCHAR, Column, DateTime, Enum, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -17,20 +16,18 @@ class UserType(enum.Enum):
 
 
 class User(DeclarativeBase):
-    __tablename__ = 'user'
+    __tablename__ = "user"
 
     id = Column(INTEGER, primary_key=True, nullable=False)
     code = relationship("Code", back_populates="user")
     user_type = Column(Enum(UserType), nullable=False)
     register_date = Column(
-        DateTime(timezone=True),
-        default=datetime.now(tz=pytz.timezone("Europe/Moscow"))
+        DateTime(timezone=True), default=datetime.now(tz=pytz.timezone("Europe/Moscow"))
     )
     update_date = Column(
-        DateTime(timezone=True),
-        default=func.now(tz=pytz.timezone("Europe/Moscow"))
+        DateTime(timezone=True), default=func.now(tz=pytz.timezone("Europe/Moscow"))
     )
-    invitor_id = Column(INTEGER, ForeignKey('user.id'))
+    invitor_id = Column(INTEGER, ForeignKey("user.id"))
     invitor_relationship = relationship("User")
 
     def __init__(self, dict_info: dict):
@@ -42,14 +39,14 @@ class User(DeclarativeBase):
 
 
 class Code(DeclarativeBase):
-    __tablename__ = 'code'
+    __tablename__ = "code"
 
     id = Column(INTEGER, primary_key=True, nullable=False)
     code = Column(VARCHAR(10), nullable=False, unique=True)
     is_used = Column(BOOLEAN, default=False)
     generation_time = Column(DateTime(timezone=True), default=datetime.now)
     use_time = Column(DateTime(timezone=True), nullable=True)
-    user_relationship = Column(INTEGER, ForeignKey('user.id'))
+    user_relationship = Column(INTEGER, ForeignKey("user.id"))
     user = relationship("User", back_populates="code")
 
     def __init__(self, dict_info: dict):
@@ -61,7 +58,7 @@ class Code(DeclarativeBase):
 
 
 class Admin(DeclarativeBase):
-    __tablename__ = 'admin'
+    __tablename__ = "admin"
 
     id = Column(INTEGER, primary_key=True, nullable=False)
     admin_code = Column(VARCHAR(256), nullable=False, unique=True)
