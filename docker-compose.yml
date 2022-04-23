@@ -7,7 +7,7 @@ services:
     container_name: bot
     restart: unless-stopped
     environment:
-      TOKEN_API: "exmaple_token"
+      TOKEN_API: ${TOKEN_API}
     networks:
       - bot_network
     depends_on:
